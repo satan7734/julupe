@@ -394,20 +394,15 @@
   <body>
 
 <script>
-  const carrito = [
-    { nombre: "Producto 1", precio: 100, imagen: "prod1.jpg" },
-    { nombre: "Producto 2", precio: 50, imagen: "prod2.jpg" }
-  ];
+  // Obtener carrito desde localStorage
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-  // Cuando el iframe esté cargado, envías el carrito
-  window.onload = () => {
-    const iframe = document.getElementById('iframe-checkout');
-    
-    iframe.onload = () => {
-      // Cambia el dominio al de tu iframe
-      iframe.contentWindow.postMessage({ carrito: carrito }, 'https://novie.in/checkout.html');
-    };
-  };
+// Referencia al iframe (asegúrate que tenga id="miIframe" o cambia por el id que uses)
+const iframe = document.getElementById('miIframe');
+
+// Enviar carrito al iframe con postMessage
+iframe.contentWindow.postMessage({ carrito }, '*'); // El '*' puedes cambiarlo por la URL del iframe para seguridad
+
 </script>
 <div class="row g-3" style="padding:7%;">
 <div id="checkout-wrapper">
