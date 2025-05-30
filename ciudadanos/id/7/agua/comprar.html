@@ -537,11 +537,16 @@ iframe.contentWindow.postMessage(carritoDatos, 'https://novie.in/checkout.html')
     actualizarCarrito();
   }
 
-  function finalizarCompra(e) {
-    e.stopPropagation();
-    guardarCarrito();
-    window.location.href = 'checkout.html';
+function finalizarCompra(e) {
+  e.stopPropagation();
+  if (carrito.length === 0) {
+    alert('El carrito está vacío.');
+    return;
   }
+  // Pasa el carrito serializado y codificado en la URL para que checkout.html lo reciba
+  const carritoStr = encodeURIComponent(JSON.stringify(carrito));
+  window.location.href = `https://novie.in/checkout.html?carrito=${carritoStr}`;
+}
 
   function toggleCarrito() {
     const detalles = document.getElementById('cart-details');
