@@ -320,32 +320,6 @@
      <h3>Siga las Instrucciones de abajo:</h3>
 
 
-<script> const carritoDatos = {
-  items: [
-    {
-      id: "pipa-001",
-      nombre: "Pipa de Agua",
-      medida: "5,000 litros",    // Puedes usar "medida" o "cantidad" según prefieras
-      cantidad: 1,
-      precio_unitario: 3500.00,
-    },
-    {
-      id: "pipa-002",
-      nombre: "Pipa de Agua",
-      medida: "10,000 litros",
-      cantidad: 2,
-      precio_unitario: 6000.00,
-    }
-  ],
-  total: 15500.00,
-  moneda: "MXN"
-};
-
-const iframe = document.querySelector('iframe');
-iframe.contentWindow.postMessage(carritoDatos, 'https://novie.in/checkout.html');
-</script>
-    </section>
-<div id="checkout-container"></div>
 
 <div class="row g-3" style="padding:10%;">
   <!-- Pipa 5 m³ -->
@@ -537,16 +511,11 @@ iframe.contentWindow.postMessage(carritoDatos, 'https://novie.in/checkout.html')
     actualizarCarrito();
   }
 
-function finalizarCompra(e) {
-  e.stopPropagation();
-  if (carrito.length === 0) {
-    alert('El carrito está vacío.');
-    return;
+  function finalizarCompra(e) {
+    e.stopPropagation();
+    guardarCarrito();
+    window.location.href = 'checkout.html';
   }
-  // Pasa el carrito serializado y codificado en la URL para que checkout.html lo reciba
-  const carritoStr = encodeURIComponent(JSON.stringify(carrito));
-  window.location.href = `https://novie.in/checkout.html?carrito=${carritoStr}`;
-}
 
   function toggleCarrito() {
     const detalles = document.getElementById('cart-details');
