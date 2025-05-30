@@ -400,9 +400,22 @@
   <div id="checkout-form-container">
     <h3>Datos del Ciudadano o Empresa</h3>
    <iframe id="checkout-iframe" src="https://novie.in/checkout.html" style="width:100%; height:100vh; border:none;"></iframe>
+<script>
+  // Ejemplo de carrito a enviar
+  const carrito = [
+    { nombre: "Pipa de agua 5 m³ - Agua Potable", precio: 500 },
+    { nombre: "Pipa de agua 10 m³ - Agua Tratada", precio: 600 }
+  ];
 
-  <!-- Carrito -->
+  const iframe = document.getElementById('checkout-iframe');
+  const origenSecundario = 'https://novie.in/checkout.html'; // Cambia a tu dominio checkout
 
+  // Esperamos a que el iframe cargue para enviar el carrito
+  iframe.addEventListener('load', () => {
+    iframe.contentWindow.postMessage({ carrito }, origenSecundario);
+    console.log('Carrito enviado al iframe');
+  });
+</script>
 </div>
 
 <script>
