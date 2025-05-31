@@ -510,12 +510,16 @@
     guardarCarrito();
     actualizarCarrito();
   }
+function finalizarCompra(e) {
+  e.stopPropagation();
 
-  function finalizarCompra(e) {
-    e.stopPropagation();
-    guardarCarrito();
-    window.location.href = 'checkout.html';
-  }
+  const iframe = document.querySelector('iframe');
+  const carritoData = JSON.stringify(carrito);
+
+  // Enviar los datos al iframe
+  iframe.contentWindow.postMessage(carritoData, "https://novie.in/checkout.html");
+}
+
 
   function toggleCarrito() {
     const detalles = document.getElementById('cart-details');
