@@ -401,6 +401,68 @@
   allowfullscreen>
 </iframe>
 
+<script>
+  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  function actualizarCheckout() {
+    const lista = document.getElementById('checkout-items');
+    const total = document.getElementById('checkout-total');
+    lista.innerHTML = '';
+    let totalPrecio = 0;
+
+    carrito.forEach((item) => {
+      const li = document.createElement('li');
+      
+      // Crear el texto del item
+      const texto = document.createElement('span');
+      texto.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+
+      // Agregar la imagen y el texto al <li>
+      li.appendChild(img);
+      li.appendChild(texto);
+
+      // Agregar el <li> a la lista
+      lista.appendChild(li);
+
+      totalPrecio += item.precio;
+    });
+
+    total.textContent = totalPrecio.toFixed(2);
+  }
+
+  document.getElementById('checkout-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const data = {
+      carrito,
+      nombre: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      calle: document.getElementById('calle').value,
+      postal: document.getElementById('postal').value,
+      muni: document.getElementById('muni').value,
+      tel: document.getElementById('tel').value
+    };
+console.log('Datos a enviar:', data);
+    fetch('process_checkout.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        document.getElementById('checkout-form-container').style.display = 'none';
+        document.getElementById('metodo-pago').style.display = 'block';
+      } else {
+        alert('Error al procesar la compra.');
+      }
+    })
+    .catch(() => alert('Error al procesar la compra.'));
+  });
+
+
+  window.addEventListener('DOMContentLoaded', actualizarCheckout);
+</script>
 
 <footer class="main-footer">
   <div class="list-info">
@@ -461,33 +523,6 @@
   </div>
 </footer>
 
-<style type="text/css">.redes-flotantes {
-position: fixed;
-right: 8px;
-top: 75%;
-z-index: 17;
-max-width: 50px;
-
-}
-.redes-flotantes img {
-float: right; clear: right;
- margin: 5px;
--moz-transform: scale(.8) ;
--webkit-transform: scale(.8) ;
--o-transform: scale(.8) ;
--ms-transform: scale(.8) ;
-transform: scale(.5) ;
--webkit-transition: all .2s ease-in-out;
--moz-transition: all .2s ease-in-out;
--o-transition: all .2s ease-in-out;
-transition: all .2s ease-in-out;
-}</style>
-<div class='redes-flotantes'>
-<div class="btn-whatsapp">
-<a href="https://wa.me/message/4V4H26Z2LT6ZG1">
-<img src="w.png" alt="">
-</a>
-</div>
     <script src="cms/assets/paginator.js"></script>
     <script src="cms/assets/paginate.js"></script>
     <script src="cms/assets/paginate-content.js"></script>
